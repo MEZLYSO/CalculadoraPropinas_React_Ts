@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { MenuItem, OrderItem } from "../types";
+import { menuItems } from "../data/db";
 
 export default function useOrder(){
 
@@ -14,17 +15,21 @@ export default function useOrder(){
             )
             setOrder(updateOrder)
         } else {
-            console.log("Añadiendo");
             const newItem : OrderItem = {...item,quantity:1}
             setOrder([...order,newItem])
         }
 
     }
-    console.log(order);
+    
+    const removeItem=(id:MenuItem['id'])=>{
+        setOrder(order.filter(item=> item.id!==id))
+        
+    }
     
     return{
         addItem,
-        order
+        order,
+        removeItem
     }
 
 }
